@@ -33,6 +33,9 @@ app.get("/contact",(req,res)=>{
 app.get("/register",(req,res)=>{
     res.render("register")
 });
+app.get("/secret",(req,res)=>{
+    res.render("secret")
+});
 
 
 app.listen(port,()=>{
