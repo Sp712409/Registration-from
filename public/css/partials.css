@@ -48,4 +48,49 @@ nav .icon{
 }
 nav .icon .fa-xmark{
     display: none;
+    position: absolute;
+    line-height: 50px;    
 }
+nav .icon .fa-bars{
+    position: absolute;
+    line-height: 50px;    
+}
+@media(max-width:900px){
+    nav .icon{
+        display: block;
+    }
+    nav .ul{
+        position: absolute;
+        height: 100vh;
+        width: 100%;
+        top: 50px;
+        left: -100%;
+        background-color: limegreen;
+        align-items: center;
+        justify-content: center;
+       flex-direction: column;
+        transition: .5s;
+    }
+    nav .ul li{
+        position: relative;
+    }
+    nav .ul li ul{
+        position: absolute;
+        height: 100px;
+        width: 100px;
+        top: 0;
+        left: 100px;
+    }
+    .active.nav .ul{
+    left: 0;
+    }
+    .active.nav .icon .fa-xmark{
+        display: block;
+    }
+    .active.nav .icon .fa-bars{
+        display: none;
+    }
+}
+
+
+   
