@@ -36,6 +36,9 @@ app.get("/register",(req,res)=>{
 app.get("/secret",(req,res)=>{
     res.render("secret")
 });
+app.get("/login",(req,res)=>{
+    res.render("login")
+});
 
 
 app.listen(port,()=>{
