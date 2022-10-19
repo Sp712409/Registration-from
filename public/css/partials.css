@@ -153,7 +153,35 @@ nav .icon .fa-bars{
     align-items: center;
     justify-content: center;
 }
+/* styling hero section */
+.hero{
+    width: 100%;
+    padding: 3rem;
+    background-color: khaki;
+}
+.hero-inner{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+    color: rgb(40, 40, 40) 
+}
+.content h1{
+     font-size: 50px;
+}
+ button{
+    padding: .5rem 1rem;
+    font-size: 18px;
+    border-radius: 10px;
+    background-color: white;
+    color: lightseagreen;
+    border: 2px solid;
+    transition: .5s;
+   margin: 1rem 0;
+}
+button:hover{
+    scale: 90%;
+    color: white;
+    background-color: lightseagreen;
+} 
 
-
-
-   

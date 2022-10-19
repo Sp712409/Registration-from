@@ -22,10 +22,10 @@ hbs.registerPartials(partials_path)
 
 
 app.get("/",(req,res)=>{
-    res.render("home")
+    res.render("home", {name:"MERN STACK STUDENT",img:"/img/1.png"})
 });
 app.get("/about",(req,res)=>{
-    res.render("about")
+    res.render("about",{name:"RAMVEER SINGH",img:"/img/2.png"})
 });
 app.get("/contact",(req,res)=>{
     res.render("contact")
