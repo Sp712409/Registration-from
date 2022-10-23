@@ -71,7 +71,20 @@ app.post("/register",async(req,res)=>{
 });
 
 
-
+app.post("/login",async(req,res)=>{
+   try {
+        const email = req.body.email;
+        const password  = req.body.password;
+    const useremail = await Register.findOne({email:email});
+    if(useremail.password===password){
+        res.status(201).render("home")
+    }else{
+        res.send("invalid login details")
+    }
+   } catch (error) {
+    res.status(400).send("invalid loing detail")
+   }
+});
 
 
 app.listen(port,()=>{
