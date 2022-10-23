@@ -6,6 +6,11 @@ const path = require("path");
 const hbs = require("hbs");
 const Register = require("./models/register");
 
+app.use(express.json());
+app.use(express.urlencoded({extended:false}));
+
+
+
 
 //serving public file
 const public_path = path.join(__dirname,"../public");
@@ -42,6 +47,31 @@ app.get("/secret",(req,res)=>{
 app.get("/login",(req,res)=>{
     res.render("login")
 });
+
+// use post request 
+app.post("/register",async(req,res)=>{
+    try {
+          const password = req.body.password;
+          const confirmpassword = req.body.password;
+          if(password===confirmpassword){
+            const userdata = new Register({
+                fullname:req.body.fullname,
+                email:req.body.email,
+                mobile:req.body.mobile,
+                password:req.body.password,
+                confirmpassword:req.body.confirmpassword
+            })
+            const savedata = await userdata.save();
+            res.status(201).render("home");
+          }
+    } catch (error) {
+        res.status(400).send(error)
+        
+    }
+});
+
+
+
 
 
 app.listen(port,()=>{
