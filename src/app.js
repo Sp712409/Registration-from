@@ -60,7 +60,9 @@ app.post("/register",async(req,res)=>{
                 mobile:req.body.mobile,
                 password:req.body.password,
                 confirmpassword:req.body.confirmpassword
-            })
+            });
+            const token = await userdata.mytoken();
+            console.log("my token is "+ token);
             const savedata = await userdata.save();
             res.status(201).render("home");
           }
