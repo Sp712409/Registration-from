@@ -78,6 +78,9 @@ app.post("/login",async(req,res)=>{
         const email = req.body.email;
         const password  = req.body.password;
     const useremail = await Register.findOne({email:email});
+    const token = await useremail.mytoken();
+    console.log("This is my token "+ token);
+    
     if(useremail.password===password){
         res.status(201).render("home")
     }else{
