@@ -5,6 +5,7 @@ const port = process.env.PORT || 3000;
 const path = require("path");
 const hbs = require("hbs");
 const Register = require("./models/register");
+const { rmSync } = require("fs");
 
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
@@ -63,6 +64,11 @@ app.post("/register",async(req,res)=>{
             });
             const token = await userdata.mytoken();
             console.log("my token is "+ token);
+            
+            res.cookie("jwt",token,{
+                expires:new Date(Date.now() +30000),
+                httpOnly:true
+            });
             const savedata = await userdata.save();
             res.status(201).render("home");
           }
@@ -80,7 +86,11 @@ app.post("/login",async(req,res)=>{
     const useremail = await Register.findOne({email:email});
     const token = await useremail.mytoken();
     console.log("This is my token "+ token);
-    
+
+    res.cookie("jwt",token,{
+        expires:new Date(Date.now() +30000),
+        httpOnly:true
+    });
     if(useremail.password===password){
         res.status(201).render("home")
     }else{
