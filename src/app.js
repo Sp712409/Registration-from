@@ -6,7 +6,9 @@ const path = require("path");
 const hbs = require("hbs");
 const Register = require("./models/register");
 const { rmSync } = require("fs");
+const cookieParser = require("cookie-parser")
 
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 
@@ -21,7 +23,6 @@ app.use(express.static(public_path));
 const dynamic_path = path.join(__dirname,"../templates/views");
 app.set("view engine","hbs");
 app.set("views", dynamic_path);
-
 
 
 //serving dynamic file
@@ -43,6 +44,7 @@ app.get("/register",(req,res)=>{
     res.render("register")
 });
 app.get("/secret",(req,res)=>{
+    console.log(`This is my secret page token ${req.cookies.jwt}`)
     res.render("secret")
 });
 app.get("/login",(req,res)=>{
@@ -66,7 +68,7 @@ app.post("/register",async(req,res)=>{
             console.log("my token is "+ token);
             
             res.cookie("jwt",token,{
-                expires:new Date(Date.now() +30000),
+                expires:new Date(Date.now() +50000),
                 httpOnly:true
             });
             const savedata = await userdata.save();
@@ -78,7 +80,6 @@ app.post("/register",async(req,res)=>{
     }
 });
 
-
 app.post("/login",async(req,res)=>{
    try {
         const email = req.body.email;
@@ -88,7 +89,7 @@ app.post("/login",async(req,res)=>{
     console.log("This is my token "+ token);
 
     res.cookie("jwt",token,{
-        expires:new Date(Date.now() +30000),
+        expires:new Date(Date.now() +50000),
         httpOnly:true
     });
     if(useremail.password===password){
