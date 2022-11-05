@@ -7,6 +7,8 @@ const hbs = require("hbs");
 const Register = require("./models/register");
 const { rmSync } = require("fs");
 const cookieParser = require("cookie-parser")
+const auth = require("./middleware/auth");
+
 
 app.use(cookieParser());
 app.use(express.json());
@@ -43,8 +45,8 @@ app.get("/contact",(req,res)=>{
 app.get("/register",(req,res)=>{
     res.render("register")
 });
-app.get("/secret",(req,res)=>{
-    console.log(`This is my secret page token ${req.cookies.jwt}`)
+app.get("/secret", auth,(req,res)=>{
+    // console.log(`This is my secret page token ${req.cookies.jwt}`)
     res.render("secret")
 });
 app.get("/login",(req,res)=>{
