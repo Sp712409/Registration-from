@@ -52,6 +52,20 @@ app.get("/secret", auth,(req,res)=>{
 app.get("/login",(req,res)=>{
     res.render("login")
 });
+app.get("/logout",auth,async(req,res)=>{
+   try {
+
+    req.document.tokens=req.document.tokens.filter((currentEle)=>{
+        return currentEle .token!==req.token;
+    })
+
+    res.clearCookie("jwt");
+    await req.document.save();
+    res.render("login");
+   } catch (error) {
+    res.status(500).send(error)
+   }
+});
 
 // use post request 
 app.post("/register",async(req,res)=>{
