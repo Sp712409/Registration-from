@@ -1,19 +1,32 @@
 const mongoose = require("mongoose");
-const jwt = require("jsonwebtoken")
+const validator = require("validator");
+
 const userSchema= new mongoose.Schema({
     fullname:{
         type:String,
-        require:true
+        require:[true, 'user FullName required'],
+        trim:true
     },
     email:{
         type:String,
         require:true,
-        unique:true
+        unique:true,
+        validate(value){
+            if(!validator.isEmail(value)){
+                throw new Error("Email is invalid");
+            }
+        }
     },
     mobile:{
-        type:Number,
-        require:true,
-        unique:true
+        type:String,
+        require:[true, 'user phone number required'],
+        unique:true,
+        validate:{
+            validator:function(value){
+                return /^[0-9]{10}$/.test(value);
+            },
+            message: props => `${props.value} is not a valid phone number!`
+        }
     },
     password:{
         type:String,
@@ -23,28 +36,12 @@ const userSchema= new mongoose.Schema({
         type:String,
         require:true
     },
-    tokens:[{
-        token:{
-            type:String,
-            require:true
-        }
-    }]
-
+    
     
    
 });
 
-userSchema.methods.mytoken=async function(){
-    try {
-        const token = jwt.sign({_id:this.id.toString()},"iamramveersingandiamafillstackdeveloper")
-        this.tokens = this.tokens.concat({token:token});
-        await this.save();
-        return token;
-    } catch (error) {
-        res.send("this is my error"+error)
-        console.log("this is my error" + error)
-    }
-}
+
 
 
 // create Collection 
