@@ -2,11 +2,6 @@ NodejsProject
 
 
 
-## Authors
-
-Ram Bhai
-
-## Deployment
 
 To deploy this project run
 
